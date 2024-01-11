@@ -1,0 +1,25 @@
+---
+
+- name: Change capabilities from caddy service
+  ansible.builtin.command: sudo setcap cap_net_bind_service=+ep /usr/bin/caddy
+  when: caddy_check_deb.rc == "1" or caddy_version != "{{ caddy_installed_version }}"
+
+- name: Ensure caddy user-group exists
+  ansible.builtin.group:
+    name: caddy
+    state: present
+
+- name: Ensure caddy user exists
+  ansible.builtin.user:
+    name: caddy
+    group: caddy
+    state: present
+    shell: /sbin/nologin
+    create_home: yes
+
+- name: Copy the service file to systemd
+  ansible.builtin.copy:
+    src: files/caddy.service
+    dest: /etc/systemd/system/caddy.service
+    mode: 0644
+  notify: Start caddy

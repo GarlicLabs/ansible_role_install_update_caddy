@@ -1,0 +1,28 @@
+---
+
+- name: Check if caddy is installed
+  ansible.builtin.command: dpkg-query -W caddy
+  register: caddy_check_deb
+  failed_when: caddy_check_deb.rc > 1
+  changed_when: caddy_check_deb.rc == 1
+
+- name: Gather Installed Packages Facts
+  ansible.builtin.package_facts:
+    manager: "auto"
+
+- name: Set caddy version as fact
+  ansible.builtin.set_fact:
+    caddy_installed_version: "{{ ansible_facts.packages['caddy'][0].version }}"
+  when: "'caddy' in ansible_facts.packages"
+
+- name: Download caddy package
+  ansible.builtin.get_url:
+    dest: "/tmp/{{ caddy_deb_file }}"
+    url: "{{ caddy_url }}"
+    mode: 0744
+  when: caddy_check_deb.rc == "1" or caddy_version != "{{ caddy_installed_version }}"
+
+- name: Install caddy
+  ansible.builtin.apt:
+    deb: /tmp/{{ caddy_deb_file }}
+  when: caddy_check_deb.rc == "1" or caddy_version != "{{ caddy_installed_version }}"

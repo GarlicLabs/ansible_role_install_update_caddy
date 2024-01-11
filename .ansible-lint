@@ -1,0 +1,7 @@
+exclude_paths:
+  - molecule/
+
+skip_list:
+  - 'unknown-module'
+  - 'no-jinja-when'
+  - 'no-changed-when'

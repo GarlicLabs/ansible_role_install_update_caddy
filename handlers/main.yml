@@ -1,0 +1,11 @@
+---
+
+- name: Start caddy
+  ansible.builtin.service:
+    name: caddy
+    state: started
+
+- name: Reload caddy
+  ansible.builtin.service:
+    name: caddy
+    state: reloaded

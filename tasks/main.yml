@@ -1,0 +1,11 @@
+---
+
+- name: Install/Update caddy on debian
+  ansible.builtin.include_tasks: debian_install_caddy.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Configure linux user and systemd
+  ansible.builtin.include_tasks: setup_user_and_systemd.yml
+
+- name: Add default Caddyfile
+  ansible.builtin.include_tasks: manage_caddyfiles.yml

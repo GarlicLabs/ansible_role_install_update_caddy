@@ -1,0 +1,14 @@
+---
+
+- name: Ensure /etc/caddy/vhosts/ exists
+  ansible.builtin.file:
+    path: /etc/caddy/vhosts/
+    state: directory
+    mode: "0755"
+
+- name: Copy Caddyfile
+  ansible.builtin.copy:
+    src: files/Caddyfile
+    dest: /etc/caddy/Caddyfile
+    mode: 0644
+  notify: Reload caddy

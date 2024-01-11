@@ -1,0 +1,7 @@
+---
+
+caddy_version: 2.7.6
+caddy_installation_plattform: linux_amd64.deb
+caddy_deb_file: "caddy_{{ caddy_version }}_{{ caddy_installation_plattform }}"
+caddy_url: "https://github.com/caddyserver/caddy/releases/download/v{{ caddy_version }}/caddy_{{ caddy_version }}_{{ caddy_installation_plattform }}"
+caddy_installed_version: 0
