@@ -19,7 +19,7 @@
   ansible.builtin.get_url:
     dest: "/tmp/{{ caddy_deb_file }}"
     url: "{{ caddy_url }}"
-    mode: 0744
+    mode: "0744"
   when: caddy_check_deb.rc == "1" or caddy_version != "{{ caddy_installed_version }}"
 
 - name: Install caddy

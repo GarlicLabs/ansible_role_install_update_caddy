@@ -10,5 +10,5 @@
   ansible.builtin.copy:
     src: files/Caddyfile
     dest: /etc/caddy/Caddyfile
-    mode: 0644
+    mode: "0644"
   notify: Reload caddy

@@ -15,11 +15,11 @@
     group: caddy
     state: present
     shell: /sbin/nologin
-    create_home: yes
+    create_home: true
 
 - name: Copy the service file to systemd
   ansible.builtin.copy:
     src: files/caddy.service
     dest: /etc/systemd/system/caddy.service
-    mode: 0644
+    mode: "0644"
   notify: Start caddy
